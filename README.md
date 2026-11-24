@@ -289,24 +289,3 @@ jupyter lab
 3. Fertilizer dosage recommendation based on targeted yield equations.
 
 ---
-
-## 16. College Viva Voce Q&A Cheat Sheet
-
-### Q1: Why did you choose Random Forest over single Decision Trees?
-> **Answer:** A single Decision Tree has high variance and easily overfits the training set by creating overly complex boundaries. Random Forest uses *bagging* (Bootstrap Aggregation) by training multiple independent trees on random subsets of data and features. Averaging their predictions significantly reduces variance and yields superior generalization (99.55% accuracy on our test set).
-
-### Q2: Why is feature scaling essential for KNN and K-Means, but not for Decision Trees?
-> **Answer:** KNN and K-Means rely on Euclidean distances:
-> $$d(p, q) = \sqrt{\sum_{i=1}^n (p_i - q_i)^2}$$
-> If one feature (e.g. Rainfall = 250 mm) has a much larger numerical range than another (e.g. pH = 6.5), the distance is dominated solely by rainfall. `StandardScaler` centers features to $\mu=0, \sigma=1$. Decision Trees, by contrast, evaluate split conditions feature-by-feature independently and are completely invariant to monotonic feature scaling.
-
-### Q3: What is the difference between $R^2$ Score and RMSE in Regression?
-> **Answer:** RMSE (Root Mean Squared Error) measures the absolute error magnitude in the original target units ($\text{tonnes/ha}$). $R^2$ (Coefficient of Determination) is a scale-independent metric indicating the proportion of variance in the target variable explained by the features ($0.0 \le R^2 \le 1.0$). Our Random Forest Regressor achieves $R^2 = 0.9083$, meaning it explains ~91% of yield variance.
-
-### Q4: How did you calculate yield from the Indian agricultural dataset?
-> **Answer:** The raw government dataset provides total `Production` (tonnes) and cultivated `Area` (hectares). Yield is mathematically derived as:
-> $$\text{Yield} = \frac{\text{Production}}{\text{Area}} \quad (\text{tonnes per hectare})$$
-> Records with zero area, null production, and non-tonne crops (such as Coconut, which is recorded in count of nuts) were removed to ensure valid unit consistency.
-
-### Q5: How does K-Means determine the cluster for a new user sample?
-> **Answer:** K-Means standardizes the user's input using the pre-fitted scaler, calculates the Euclidean distance between the scaled sample and the $k$ cluster centroids, and assigns the sample to the cluster whose centroid is geometrically closest.
